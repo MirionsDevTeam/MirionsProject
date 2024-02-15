@@ -1,0 +1,14 @@
+{
+  "swaggerDefinition": {
+    "openapi": "3.1.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Event Planning API",
+      "description": "Event Planning API Information",
+      "contact": {
+        "name": "Developeres team"
+      }
+    }
+  },
+  "apis": ["src/routes/*.routes.js"]
+}

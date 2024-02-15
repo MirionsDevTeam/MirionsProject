@@ -10,25 +10,30 @@ const getAllProducts = async (req, res, next) => {
     }
 };
 
-/*
-const getProductById = async (req, res, next) => {};
-const createProduct = async (req, res, next) => {};
-const updateProduct = async (req, res, next) => {
+const createProduct = async (req, res, next) => {
     try {
-        const { productId } = req.params.productId;
-        const payload = req.body;
-
-        const product = await productService.updateProduct(productId, payload);
-        res.status(200).json(product);
+        const products = await productService.getAllProducts();
+        res.status(200).json(products);
     } catch(err){
         console.error(err);
         res.status(500).send('Error');
     }
 };
 
-const deleteProduct = async (req, res, next) => {};
-*/
+const updateProduct = async (req, res, next) => {
+    try {
+        console.log(req.params.idProduct);
+
+        const products = await productService.getAllProducts();
+        res.status(200).json(products);
+    } catch(err){
+        console.error(err);
+        res.status(500).send('Error');
+    }
+};
 
 module.exports = {
     getAllProducts,
+    createProduct,
+    updateProduct,
 };
