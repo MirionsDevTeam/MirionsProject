@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "node",
+    "password": "node",
+    "database": "node",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "seederStorageTableName": "sequelize_data"
+  },
+  "test": {
+    "username": "node",
+    "password": "node",
+    "database": "node",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+  "username": "node",
+    "password": "node",
+    "database": "node",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

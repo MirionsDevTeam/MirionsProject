@@ -14,6 +14,9 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerConfig = require("./config/swagger.json");
 const swaggerDocs = swaggerJsDoc(swaggerConfig);
 
+const getAssoc = require('./utils/getAssoc');
+global.getAssoc = getAssoc;
+
 app
   .use(cors())
   .use(morgan('dev')) // Carga el middleware de Morgan
