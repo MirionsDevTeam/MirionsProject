@@ -18,7 +18,16 @@ const getUser = async (id) =>{
     }
 }
 
+const getUserByMail = async (mail) =>{
+    try{
+    return await userRepository.getUserByMail(mail);
+    }catch(err){
+        throw err;
+    }
+}
+
 module.exports = {
     getAllUsers,
-    getUser
+    getUser,
+    getUserByMail
 }

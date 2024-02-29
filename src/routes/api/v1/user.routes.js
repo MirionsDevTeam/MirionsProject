@@ -6,4 +6,6 @@ router.get("/", userController.getAllUsers);
 
 router.get('/:id',userController.getUser);
 
+router.get('/:mail',userController.getUserByMail)
+
 module.exports = router;
