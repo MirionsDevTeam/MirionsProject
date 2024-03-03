@@ -1,5 +1,10 @@
 "use strict";
 const { User } = require('../models');
+
+const createUser = async (req,res,next) => {
+
+}
+
 const getAllUsers = async () => {
     try {
         
@@ -11,12 +16,15 @@ const getAllUsers = async () => {
     }
 }
 
+
 const getUser = async(id) => {
     try {
         
-        return User.findByPk(id,{
+        const user = User.findByPk(id,{
             include: getAssoc(User)
         });
+       
+        return user;
     } catch(err){
         throw err;
     }

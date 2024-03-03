@@ -93,4 +93,12 @@ router.get("/", eventController.getAllEvents);
 */
 router.get('/:id',eventController.getEvent);
 
+router.post('/',eventController.storeEvent);
+
+router.post("/filters", eventController.getEventsWithFilters);
+
+router.put('/:id',eventController.updateEvent);
+
+router.delete('/:id',eventController.deleteEvent);
+
 module.exports = router;

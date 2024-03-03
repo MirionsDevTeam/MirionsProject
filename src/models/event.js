@@ -16,12 +16,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Event.init({
-    title: DataTypes.STRING(50),
+    title: {
+      type:DataTypes.STRING(50),
+      allowNull:false
+    },
     description: DataTypes.STRING,
     provincia: DataTypes.STRING,
     city: DataTypes.STRING,
     address: DataTypes.STRING,
     location: DataTypes.STRING,
+    date: DataTypes.DATE,
     eventType: DataTypes.STRING(50),
     minGuests: DataTypes.INTEGER,
     maxGuests: DataTypes.INTEGER,

@@ -1,6 +1,7 @@
 "use strict";
 const userService = require('../services/userService');
 
+
 const getAllUsers = async (req, res, next) => {
     try {
         const users = await userService.getAllUsers();
@@ -27,6 +28,7 @@ const getUser = async (req, res, next) => {
 }
 
 module.exports = {
+  
     getAllUsers,
     getUser
 }

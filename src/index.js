@@ -15,7 +15,14 @@ const swaggerConfig = require("./config/swagger.json");
 const swaggerDocs = swaggerJsDoc(swaggerConfig);
 
 const getAssoc = require('./utils/getAssoc');
+
 global.getAssoc = getAssoc;
+
+const  createCustomError  = require('./utils/errorHandler.js');
+const CustomError = createCustomError();
+
+global.CustomError = CustomError;
+
 
 app
   .use(cors())
