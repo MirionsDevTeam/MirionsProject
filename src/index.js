@@ -14,13 +14,15 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerConfig = require("./config/swagger.json");
 const swaggerDocs = swaggerJsDoc(swaggerConfig);
 
+//Asociaciones entre modelos
 const getAssoc = require('./utils/getAssoc');
 
-global.getAssoc = getAssoc;
-
+//Errores personalizados
 const  createCustomError  = require('./utils/errorHandler.js');
 const CustomError = createCustomError();
 
+//Definición global de funciones
+global.getAssoc = getAssoc;
 global.CustomError = CustomError;
 
 

@@ -2,27 +2,6 @@
 
 const eventRepository = require('../repositories/eventRepository');
 
-
-const storeEvent = async (body) => {
-    try{
-        return await eventRepository.storeEvent(body);
-    }catch(err){
-        throw err;
-    }
-}
-
-
-
-
-
-const updateEvent = async (id,body) => {
-    try{
-        return await eventRepository.updateEvent(id,body);
-    }catch(err){
-        throw err;
-    }
-}
-
 const getAllEvents = async () => {
     try{
     return await  eventRepository.getAllEvents();
@@ -39,27 +18,43 @@ const getEvent = async (id) =>{
     }
 }
 
-const deleteEvent = async(id,req) => {
+const getEventsWithFilters = async(filters) => {
     try{
-       return await eventRepository.deleteEvent(id,req);
-    } catch(error){
-        throw error;
-    }
-}
-
-const getEventsWithFilters = async(body) => {
-    try{
-        return await eventRepository.getEventsWithFilters(body);
+        return await eventRepository.getEventsWithFilters(filters);
      } catch(error){
          throw error;
      }
 }
 
+const storeEvent = async (params) => {
+    try{
+        return await eventRepository.storeEvent(params);
+    }catch(err){
+        throw err;
+    }
+}
+
+const updateEvent = async (id,newParams) => {
+    try{
+        return await eventRepository.updateEvent(id,newParams);
+    }catch(err){
+        throw err;
+    }
+}
+
+const deleteEvent = async(id,requestParams) => {
+    try{
+       return await eventRepository.deleteEvent(id,requestParams);
+    } catch(error){
+        throw error;
+    }
+}
+
 module.exports = {
     getAllEvents,
     getEvent,
+    getEventsWithFilters,
     storeEvent,
     updateEvent,
-    deleteEvent,
-    getEventsWithFilters
+    deleteEvent    
 }

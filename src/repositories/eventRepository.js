@@ -1,109 +1,6 @@
 "use strict";
 const { Event } = require('../models');
 
-
-const storeEvent = async (body) => {
-    try {
-        const {
-            title,
-            description,
-            provincia,
-            city,
-            address,
-            location,
-            eventType,
-            minGuests,
-            maxGuests,
-            observations,
-
-        } = body;
-
-        const newEvent = await Event.create({
-            title: title,
-            description: description,
-            provincia: provincia,
-            city: city,
-            address: address,
-            location: location,
-            eventType: eventType,
-            minGuests: minGuests,
-            maxGuests: maxGuests,
-            observations: observations,
-            createdBy: 1,
-            updatedBy: 1,
-
-        });
-        return newEvent;
-    } catch (error) {
-        throw error
-
-    }
-}
-const updateEvent = async (id, body) => {
-    try {
-        const {
-            title,
-            description,
-            provincia,
-            city,
-            address,
-            location,
-            eventType,
-            minGuests,
-            maxGuests,
-            observations,
-
-        } = body;
-
-        var params = [];
-
-        if (title) {
-            params.title = title;
-        }
-
-
-        if (description) {
-            params.description = description;
-        }
-        if (provincia) {
-            params.provincia = provincia;
-        }
-        if (city) {
-            params.city = city;
-        }
-        if (address) {
-            params.address = address;
-        }
-        if (location) {
-            params.location = location;
-        }
-        if (eventType) {
-            params.eventType = eventType;
-        }
-        if (minGuests) {
-            params.minGuests = minGuests;
-        }
-        if (maxGuests) {
-            params.maxGuests = maxGuests;
-        }
-        if (observations) {
-            params.observations = observations;
-        }
-        params.updatedBy = 1;
-        const event = await Event.findByPk(id);
-        if (!event) {
-            throw new CustomError(`No se pudo encontrar el evento ${id}`, 512);
-        }
-
-
-        event.set(params);
-        await event.save();
-        return event;
-    } catch (err) {
-        throw err;
-    }
-
-}
 const getAllEvents = async () => {
     try {
 
@@ -202,6 +99,97 @@ const getEventsWithFilters = async (body) => {
 
 }
 
+const storeEvent = async (body) => {
+    try {
+        const {
+            title,
+            description,
+            provincia,
+            city,
+            address,
+            location,
+            eventType,
+            minGuests,
+            maxGuests,
+            observations,
+            createdBy,
+            updatedBy
+
+        } = body;
+
+        const newEvent = await Event.create(body);
+        return newEvent;
+    } catch (error) {
+        throw error
+
+    }
+}
+
+const updateEvent = async (id, body) => {
+    try {
+        const {
+            title,
+            description,
+            provincia,
+            city,
+            address,
+            location,
+            eventType,
+            minGuests,
+            maxGuests,
+            observations,
+
+        } = body;
+
+        var params = [];
+
+        if (title) {
+            params.title = title;
+        }
+
+
+        if (description) {
+            params.description = description;
+        }
+        if (provincia) {
+            params.provincia = provincia;
+        }
+        if (city) {
+            params.city = city;
+        }
+        if (address) {
+            params.address = address;
+        }
+        if (location) {
+            params.location = location;
+        }
+        if (eventType) {
+            params.eventType = eventType;
+        }
+        if (minGuests) {
+            params.minGuests = minGuests;
+        }
+        if (maxGuests) {
+            params.maxGuests = maxGuests;
+        }
+        if (observations) {
+            params.observations = observations;
+        }
+        params.updatedBy = 1;
+        const event = await Event.findByPk(id);
+        if (!event) {
+            throw new CustomError(`No se pudo encontrar el evento ${id}`, 512);
+        }
+
+
+        event.set(params);
+        await event.save();
+        return event;
+    } catch (err) {
+        throw err;
+    }
+
+}
 const deleteEvent = async (id, req) => {
 
 
