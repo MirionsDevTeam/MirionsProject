@@ -15,6 +15,9 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      date: {
+        type:Sequelize.DATE, 
+      },
       provincia: {
         type: Sequelize.STRING
       },

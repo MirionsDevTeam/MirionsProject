@@ -2,20 +2,21 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const morgan = require('morgan') // Carga el logger de Morgan
+const morgan = require('morgan');
 const bodyParser = require("body-parser");
-
-const app = express();
 const routes = require("./routes/index");
-
-// Config swagger
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerConfig = require("./config/swagger.json");
 const swaggerDocs = swaggerJsDoc(swaggerConfig);
-
 const getAssoc = require('./utils/getAssoc');
+const createCustomError  = require('./utils/errorHandler.js');
+
+const app = express();
+
+//Definición global de funciones
 global.getAssoc = getAssoc;
+global.CustomError = createCustomError();
 
 app
   .use(cors())
