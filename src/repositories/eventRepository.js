@@ -10,7 +10,7 @@ const getAllEvents = async () => {
     } catch (err) {
         throw err;
     }
-}
+};
 
 const getEvent = async (id) => {
     try {
@@ -18,191 +18,63 @@ const getEvent = async (id) => {
         const event = await Event.findByPk(id, {
             include: getAssoc(Event)
         });
+
         if (!event) {
             throw new CustomError(`No se pudo encontrar el evento ${id}`, 512);
         }
+
         return event;
     } catch (err) {
         throw err;
     }
-}
+};
 
-const getEventsWithFilters = async (body) => {
-    const {
-        title,
-        date,
-        description,
-        provincia,
-        city,
-        address,
-        location,
-        eventType,
-        minGuests,
-        maxGuests,
-        observations,
-
-    } = body;
-    
+const getEventsWithFilters = async (filters) => {
     try {
-        let filters = {};
-
-        if (title) {
-            filters.title = title;
-        }
-
-        if (date) {
-            filters.date = date;
-        }
-
-        if (description) {
-            filters.description = description;
-        }
-
-        if (provincia) {
-            filters.provincia = provincia;
-        }
-
-        if (city) {
-            filters.address = address;
-        }
-
-        if (location) {
-            filters.location = location;
-        }
-
-        if (eventType) {
-            filters.eventType = eventType;
-        }
-
-        if(minGuests){
-            filters.minGuests=minGuests;
-        }
-
-        if(maxGuests){
-            filters.maxGuests = maxGuests;
-        }       
-
-        if(observations){
-            filters.observations = observations;
-        }
-        const events = await Event.findAll({
-
+        return await Event.findAll({
             where: filters,
             include: getAssoc(Event),
         });
-     
-        return events;
     } catch (error) {
         throw error;
-        
     }
-
-}
+};
 
 const storeEvent = async (body) => {
     try {
-        const {
-            title,
-            description,
-            provincia,
-            city,
-            address,
-            location,
-            eventType,
-            minGuests,
-            maxGuests,
-            observations,
-            createdBy,
-            updatedBy
-
-        } = body;
-
         const newEvent = await Event.create(body);
+
         return newEvent;
     } catch (error) {
-        throw error
-
+        throw error;
     }
-}
+};
 
-const updateEvent = async (id, body) => {
+const updateEvent = async (id, params) => {
     try {
-        const {
-            title,
-            description,
-            provincia,
-            city,
-            address,
-            location,
-            eventType,
-            minGuests,
-            maxGuests,
-            observations,
-
-        } = body;
-
-        var params = [];
-
-        if (title) {
-            params.title = title;
-        }
-
-
-        if (description) {
-            params.description = description;
-        }
-        if (provincia) {
-            params.provincia = provincia;
-        }
-        if (city) {
-            params.city = city;
-        }
-        if (address) {
-            params.address = address;
-        }
-        if (location) {
-            params.location = location;
-        }
-        if (eventType) {
-            params.eventType = eventType;
-        }
-        if (minGuests) {
-            params.minGuests = minGuests;
-        }
-        if (maxGuests) {
-            params.maxGuests = maxGuests;
-        }
-        if (observations) {
-            params.observations = observations;
-        }
         params.updatedBy = 1;
+
         const event = await Event.findByPk(id);
         if (!event) {
             throw new CustomError(`No se pudo encontrar el evento ${id}`, 512);
         }
 
-
         event.set(params);
-        await event.save();
-        return event;
+
+        return await event.save();
     } catch (err) {
         throw err;
     }
+};
 
-}
 const deleteEvent = async (id, req) => {
-
-
-
     try {
-      
-
         //Comprobación de argumento en ruta para borrado físico o lógico
         let force = false;
-        if (req.query.forceDelete == "true") {
+
+        if (req.query.forceDelete) {
             force = true;
         }
-
 
         const event = await Event.findByPk(id);
         if (!event) {
@@ -216,11 +88,11 @@ const deleteEvent = async (id, req) => {
 
         await event.save();
         await event.destroy({ force: force });
-        return event;
     } catch (error) {
         throw error;
     }
-}
+};
+
 module.exports = {
     updateEvent,
     getAllEvents,
@@ -229,5 +101,3 @@ module.exports = {
     deleteEvent,
     getEventsWithFilters
 };
-
-
