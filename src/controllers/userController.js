@@ -42,8 +42,57 @@ const getUserByMail = async (req, res, next) => {
     
 }
 
+const getUsersWithFilters = async (req, res, _next) => {
+    try {
+        const users = await userService.getUsersWithFilters(req.body);
+
+        return res.status(200).json(users);
+    } catch (err) {
+        return res.status(err.statusCode).send(err.message);
+    }
+};
+
+const storeUser = async (req, res, _next) => {
+    try {
+        const newUser = await userService.storeUser(req.body);
+
+        return res.status(201).send(`Usuario ${newUser.id} creado correctamente`);
+    } catch (error) {
+        return res.status(500).send(`Se produjo el siguiente error: ${error.message}`);
+    }
+};
+
+const updateUser = async (req, res, _next) => {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+
+        await userService.updateUser(id, body);
+
+        return res.status(200).send(`Usuario ${id} actualizado correctamente`);
+    } catch (error) {
+        return res.status(error.statusCode).send(`Se produjo el siguiente error: ${error.message}`);
+    }
+};
+
+const deleteUser = async (req, res, _next) => {
+    try {
+        const id = req.params.id;
+        await userService.deleteUser(id, req);
+
+        return res.status(200).send(`El usuario ${id} se ha eliminado correctamente`);
+    } catch (err) {
+        return res.status(err.statusCode).send(err.message);
+    }
+};
+
+
 module.exports = {
     getAllUsers,
     getUser,
-    getUserByMail
+    getUserByMail,
+    getUsersWithFilters,
+    storeUser,
+    updateUser,
+    deleteUser
 }
