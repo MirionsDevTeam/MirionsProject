@@ -70,6 +70,7 @@ const router = express.Router();
  *                  items:
  *                      $ref: '#/components/schemas/User'
  */
+
 router.get("/", userController.getAllUsers);
 
 /**
@@ -95,5 +96,126 @@ router.get("/", userController.getAllUsers);
 *                  $ref: '#/components/schemas/User'
 */
 router.get('/:id',userController.getUser);
+
+
+/**
+@swagger
+    /api/v1/users/{mail}:
+        get:
+            tags: [Users]
+            description: Use to request one user by mail
+            parameters:
+                - in: path
+                name: mail
+                schema:
+                    type: string
+                    required: true
+                description: email of user to get
+            responses:
+            '200':
+                description: A successful response
+                content:
+                application/json:
+                    schema:
+                        type: object
+                        $ref: '#/components/schemas/User'
+*/
+
+router.get('/:mail',userController.getUserByMail)
+
+/**
+@swagger
+    /api/v1/users/{filters}:
+        get:
+            tags: [Users]
+            description: Use to request one user by mail
+            parameters:
+                - in: path
+                name: filters
+                    schema:
+                        type: object
+                        $ref: '#/components/schemas/User'
+                description: user values to filter with
+            responses:
+            '200':
+                description: A successful response
+                content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Users'
+*/
+router.post('/filters',userController.getUsersWithFilters)
+
+/**
+@swagger
+    /api/v1/users/:
+        post:
+            tags: [Users]
+            description: Use to insert one user in database
+            resquestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            $ref: '#/components/schemas/User'
+            responses:
+            '200':
+                description: A successful response
+                content:
+                    text:
+*/
+router.post('/',userController.storeUser);
+
+/**
+@swagger
+    /api/v1/users/{id}:
+        put:
+            tags: [Users]
+            description: Use to insert one user in database
+            parameters:
+                - in: path
+                name: id
+                schema:
+                    type: string
+                    required: true
+                description: Numeric ID of the comando to put            
+            resquestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            $ref: '#/components/schemas/User'
+            responses:
+            '200':
+                description: A successful response
+                content:
+                    text:
+*/
+router.put('/:id',userController.updateUser);
+
+/**
+@swagger
+    /api/v1/users/{id}:
+        delete:
+            tags: [Users]
+            description: Use to delete one user by ID
+            parameters:
+                - in: path
+                name: id
+                schema:
+                    type: string
+                    required: true
+                description: Numeric ID of the comando to delete   
+            responses:
+            '200':
+                description: A successful response
+                content:
+                    text:
+*/
+router.delete('/:id',userController.deleteUser);
 
 module.exports = router;
